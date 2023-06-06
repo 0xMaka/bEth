@@ -1,13 +1,13 @@
 from os import getenv
 from dotenv import load_dotenv
 from discord import Intents, Game
-from asyncio import run, sleep
+from asyncio import sleep
 from aiohttp import ClientSession
 from discord.ext import commands
 
 load_dotenv()
 TOKEN = getenv('TOKEN')
-TIMEOUT = 5
+TIMEOUT = 30
 REST = 60
 
 intents = Intents.default()
@@ -23,7 +23,7 @@ async def fetch_prices():
         r = (await response.json())['result']
         return [r['instant']['feeCap'], r['fast']['feeCap'], r['eco']['feeCap'], r['ethPrice']]
       else:
-        raise Exception(f'Call failed. Return code: {request.status}. \n')
+        raise Exception(f'Call failed. Return code: {response.status}. \n')
 #--
 
 @bot.command()
