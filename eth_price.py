@@ -1,8 +1,7 @@
 from asyncio import run
 from aiohttp import ClientSession
+TIMEOUT = 10
 
-TIMEOUT = 60
-ETH_PRICE = '{bundle(id: 1) {ethPrice}}'
 async def fetch_price_from_sushi():
   async with ClientSession() as session:
     async with session.post('https://api.thegraph.com/subgraphs/name/sushiswap/exchange', json={'query': '{bundle(id: 1) {ethPrice}}'}, timeout=TIMEOUT) as response:
@@ -10,7 +9,7 @@ async def fetch_price_from_sushi():
         price = await response.json()
         return round(float(price['data']['bundle']['ethPrice']),2)
       else:
-        raise Exception(f'Call failed. Return code: {request.status}. \n')
+        raise Exception(f'Call failed. Return code: {response.status}. \n')
 
 async def fetch_eth_price():
   price = await fetch_price_from_sushi()

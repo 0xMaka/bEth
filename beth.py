@@ -23,7 +23,6 @@ async def beth(ctx):
   while True:
     base, hi, mi, lo = fetch_estimates()
     fast, avrg, slow = list(map(lambda fee: round((fee + base)/10**9), [hi,mi,lo]))
-    #fast, avrg, slow = [round((i + base)/10**9) for i in [hi,mi,lo]]
     usd = await fetch_eth_price()
 
     name = f'$ETH: {usd}✨'
