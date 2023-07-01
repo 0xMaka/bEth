@@ -5,7 +5,7 @@ from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
 
-w3 = Web3(Web3.HTTPProvider(getenv(ENDPOINT))
+w3 = Web3(Web3.HTTPProvider(getenv(ENDPOINT)))
 
 def format_fee_history(result, include_pending):
   block_num = result.oldestBlock
