@@ -1,6 +1,11 @@
 from web3 import Web3
 from functools import reduce
-w3 = Web3(Web3.HTTPProvider('https://eth-mainnet.g.alchemy.com/v2/b7MvVAP-gxqOuROTOVfbmhkKcQVy3-54'))
+
+from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+
+w3 = Web3(Web3.HTTPProvider(getenv(ENDPOINT))
 
 def format_fee_history(result, include_pending):
   block_num = result.oldestBlock
