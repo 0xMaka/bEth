@@ -1,10 +1,6 @@
 from web3 import Web3
 from functools import reduce
-from os import getenv
-from dotenv import load_dotenv
-
-load_dotenv()
-w3 = Web3(Web3.HTTPProvider(getenv(ENDPOINT)))
+w3 = Web3(Web3.HTTPProvider('ENDPOINT'))
 
 def format_fee_history(result, include_pending):
   block_num = result.oldestBlock
@@ -40,7 +36,7 @@ def fetch_estimates():
   hi = list(map(lambda b: b['priorityFeePerGas'][2], blocks))
   mi = list(map(lambda b: b['priorityFeePerGas'][1], blocks))
   lo = list(map(lambda b: b['priorityFeePerGas'][0], blocks))
-  
+
   estimates = []
   estimates.append(w3.eth.get_block('pending').baseFeePerGas)
   for items in [hi, mi, lo]:
@@ -48,7 +44,7 @@ def fetch_estimates():
 
   return estimates
 
-if __name__ == '__main__':  
+if __name__ == '__main__':
   base, high, medium, low = fetch_estimates()
   print('max :',w3.eth.max_priority_fee + base)
   print('high:',high + base)
